@@ -1,8 +1,8 @@
 import os
 
-parent = "Ryan/"
+parent = ""
 
-for i in range(2 , 5): #Creates the week folder inside of the parent folder
+for i in range(3 , 5): #Creates the week folder inside of the parent folder
     dict = f"Week {i}"
     path = os.path.join(parent, dict)
     os.mkdir(path)

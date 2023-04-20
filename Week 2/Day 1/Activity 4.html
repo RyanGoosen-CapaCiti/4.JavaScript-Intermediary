@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        async function getUsers(names) {
+            let users = [];
+            for (let name of names) {
+                let response = await fetch(`https://api.github.com/users/${name}`);
+                let user = await response.json();
+                users.push(user);
+            }
+            return users;
+        }
+        let names = ['octocat', 'mojombo', 'defunkt'];
+        getUsers(names).then(users => {
+            console.log(users); // Output: array of user objects for each username
+        }).catch(error => {
+            console.error(error);
+        });
+    </script>
+</body>
+
+</html>
