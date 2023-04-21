@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    ASD
+    <script>
+        // Search the str for the regexp
+        // let regexp = /love/gi;
+        // let str = "I love JavaScript";
+        // // start the search from position 10:
+        // regexp.lastIndex = 10
+        // alert(regexp.test(str))
+
+
+
+        // show and replace all matches
+        // function replacer(str, offset, input) {
+        //     alert("Found ${str} at position ${offset} in string ${input}");
+        //     return str.toLowerCase();
+        // }
+        // let result = "HO-Ho-ho".replace(/ho/gi, replacer);
+        // alert('Result: ' + result); // Result: ho-ho-ho
+        // // shows each match:
+
+
+
+        // any single digit "\d"
+        // let str = "+7(903)-123-45-67";
+        // let reg = /\d/g;
+        // alert(str.match(reg)); // 7
+
+
+
+
+        // regexp may contain both regular symbols and character classes.
+        // alert( "I love HTML5!".match(/\s\w\w\w\w\d/) );
+
+
+        // \b\b Finds the exact match of the word in the string, doesnt work for non-latin alphabet
+        // alert("Hello, Java!".match(/\bHello\b/)); // Hello
+        // alert("Hello, Java!".match(/\bJava\b/));  // Java
+        // alert("Hello, Java!".match(/\bHell\b/));  // null (no match)
+        // alert("Hello, Java!".match(/\bJava!\b/)); // null (no match)
+
+
+        ////Only return the non digits "\D"
+        // let str = "+7(903)-123-45-67";
+        // alert(str.match(/\d/g).join('')); // 79031234567
+        // let str2 = "+7(903)-123-45-67";
+        // alert(str2.replace(/\D/g, "")); // 79031234567
+
+
+        // Returns the match of where the - is located with a space and digit to left and right
+        // alert("121 - 512".match(/\d - \d/))
+
+
+        // A "." can match any character except a new line
+        let reg = /CS.4/;
+        alert("CSS4".match(reg)); // CSS4
+        alert("CS-4".match(reg)); // CS-4
+        alert("CS 4".match(reg)); // CS 4 (space is also a character)
+        // except when s is used the "." then becomes a new line
+        alert( "A\nB".match(/A.B/) );
+        alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+
+
+
+    </script>
+</body>
+
+</html>
