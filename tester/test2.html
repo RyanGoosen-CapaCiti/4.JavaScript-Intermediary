@@ -111,27 +111,6 @@
         // Close the popup
         closePopup();
       }
-
-      
-
-      //TEXT FILE
-      function searchAndDisplayFile() {
-        // Get the search query from the input element
-        const query = document.getElementById("search-input").value.trim();
-
-        // Build the URL to the text file based on the search query
-        const fileUrl = `${query}`;
-
-        // Fetch the content of the text file and set it as the source document of the iframe
-        fetch(fileUrl)
-          .then((response) => response.text())
-          .then((content) => {
-            const iframe = document.createElement("iframe");
-            iframe.srcdoc = content;
-            document.body.appendChild(iframe);
-          })
-          .catch((error) => console.error(error));
-      }
     </script>
   </body>
 </html>

@@ -7,36 +7,29 @@
     <title>Document</title>
   </head>
   <body>
-    <input type="text" id="search-input" placeholder="Enter file name...">
     <button onclick="searchAndDisplayFile()">Search</button>
 
     <script>
-      function searchAndDisplayFile() {
-        // Get the search query from the input element
-        const query = document.getElementById("search-input").value.trim();
+function searchAndDisplayFile() {
+  // Get the search query from the input element
+  const query = "test1.txt";
 
-        // Build the URL to the text file based on the search query
-        const fileUrl = 'test1';
+  // Build the URL to the text file based on the search query
+  const fileUrl = `${query}`;
 
-        // Use the fetch API to get the text file
-        fetch(fileUrl)
-          .then(response => {
-            // If the response is not ok (e.g. 404 file not found), throw an error
-            if (!response.ok) {
-              throw new Error(`File ${fileUrl} not found`);
-            }
-            // Otherwise, return the response body as text
-            return response.text();
-          })
-          .then(text => {
-            // Display the file contents in an alert box
-            alert(text);
-          })
-          .catch(error => {
-            // Display an error message if the file was not found
-            alert(error.message);
-          });
-      }
+  // Fetch the content of the text file and set it as the source document of the iframe
+  fetch(fileUrl)
+    .then((response) => response.text())
+    .then((content) => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `data:text/html;charset=utf-8,${encodeURI(content)}`;
+      document.body.appendChild(iframe);
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Failed to load file.");
+    });
+}
     </script>
   </body>
 </html>
