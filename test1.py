@@ -1,1 +1,1 @@
-print("This is fucken retarded")
+print('This is fucken retarded')
