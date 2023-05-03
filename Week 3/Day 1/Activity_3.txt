@@ -1,0 +1,20 @@
+What is Node JS?
+Node is an aplication that allows developers to run javascript on the computer processor itself insttead of through the browser
+
+How is Node JS initiated on a computer?
+Command Line
+
+Why do we use Node JS?
+For non-blocking, event-driven servers
+
+What can Node JS do?
+To run javascript on computer processors
+
+What is a module in Node JS the same as in JavaScript?
+Libraries
+
+What is NPM?
+Node Packet Manager
+
+What is contained  in a Node JS Package?
+All the files you need for a module
