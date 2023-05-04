@@ -1,0 +1,7 @@
+1. Checks if a key has been pressed by running the isDown function and inserting 2 paramaters into the function the game and the wanted key
+
+2. The function gives a boolean output true or false 
+
+3.1 If the A is pressed the angular velocity will change to the formulas spesifics (Move in the opisite or negative angle)
+
+3.2 If the D is pressed the angular velocity will change to the formulas spesifics (Move in the same or positive angle)
