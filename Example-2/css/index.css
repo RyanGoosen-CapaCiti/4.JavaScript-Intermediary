@@ -1,0 +1,29 @@
+.menu-container {
+    background-color: #083B66;
+    overflow: hidden;
+}
+
+.menu-container a {
+    float: left;
+    color: #ABA104;
+    text-align: center;
+    margin-top: 1%;
+    text-decoration: none;
+    font-size: 17px;
+  } 
+  
+ /* Change the color of links when cursor hovers over ir */
+  .menu-container a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .menu-container a.active {
+    background-color: #ABA104;;
+    color: #083B66;
+  }
+
+  .badge{
+    width: 7%;
+} 

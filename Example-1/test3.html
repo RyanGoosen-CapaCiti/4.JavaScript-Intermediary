@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Snake Game</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hangman Snake Game</h1>
+    <p id="word"></p>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+      // Set up canvas and context
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set up game variables
+      const snakeSize = 25;
+      let snake = [];
+      let direction = "right";
+      let score = 0;
+      let apples = [
+        { letter: "h", x: 2, y: 2 },
+        { letter: "a", x: 4, y: 4 },
+        { letter: "n", x: 6, y: 6 },
+        { letter: "g", x: 8, y: 8 },
+        { letter: "m", x: 10, y: 10 },
+        { letter: "a", x: 12, y: 12 },
+        { letter: "n", x: 14, y: 14 },
+      ];
+      let word = "_ _ _ _ _ _ _";
+      let incorrectGuesses = 0;
+      const maxIncorrectGuesses = 6;
+
+      // Set up initial snake position
+      for (let i = 0; i < 3; i++) {
+        snake.push({ x: i, y: 0 });
+      }
+
+      // Spawn initial apples
+      spawnApples();
+
+      // Set up game loop
+      setInterval(gameLoop, 100);
+
+      function gameLoop() {
+        // Move the snake
+        moveSnake();
+
+        // Check if the snake has collided with an apple
+        for (let i = 0; i < apples.length; i++) {
+          if (snake[0].x === apples[i].x && snake[0].y === apples[i].y) {
+            // Remove the eaten apple
+            apples.splice(i, 1);
+
+            // Update the word display
+            updateWord();
+
+            // Increase the score
+            score += 10;
+          }
+        }
+
+        // Check if the game is over
+        if (incorrectGuesses >= maxIncorrectGuesses) {
+          // Game over
+          alert("Game over! The word was 'hangman'.");
+          location.reload(); // Reload the page to restart the game
+        } else if (word === "h a n g m a n") {
+          // Player won
+          alert("Congratulations! You guessed the word!");
+          location.reload(); // Reload the page to restart the game
+        }
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw apples
+        for (let i = 0; i < apples.length; i++) {
+          ctx.fillStyle = "red";
+          ctx.fillRect(
+            apples[i].x * snakeSize,
+            apples[i].y * snakeSize,
+            snakeSize,
+            snakeSize
+          );
+        }
+
+        // Draw snake
+        for (let i = 0; i < snake.length; i++) {
+          ctx.fillStyle = "green";
+          ctx.fillRect(
+            snake[i].x * snakeSize,
+            snake[i].y

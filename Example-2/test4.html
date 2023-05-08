@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Snake Game</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+        display: block;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script>
+      // Set up canvas and context
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set up game variables
+      const snakeSize = 25;
+      let snake = [];
+      let direction = "right";
+      let score = 0;
+      let apples = [];
+
+      // Set up initial snake position
+      for (let i = 0; i < 1; i++) {
+        snake.push({ x: i, y: 0 });
+      }
+
+      // Spawn initial apples
+      spawnApples(5);
+
+      // Set up game loop
+      setInterval(gameLoop, 100);
+
+      //GAME OVER
+      let gameOver = false;
+
+      //WORDS
+      const capitalCities = [
+        "Tokyo",
+        "New Delhi",
+        "Paris",
+        "London",
+        "Beijing",
+        "Washington",
+        "Moscow",
+        "Rome",
+        "Berlin",
+        "Ottawa",
+      ];
+
+      // Select a random word from the list
+      const randomIndex = Math.floor(Math.random() * capitalCities.length);
+      const word = capitalCities[randomIndex];
+
+      // Set up hidden word
+      let hiddenWord = "";
+      for (let i = 0; i < word.length; i++) {
+        hiddenWord += "_";
+      }
+
+      function gameLoop() {
+        // Move the snake
+        moveSnake();
+
+        // Check if the snake has collided with an apple
+        for (let i = 0; i < apples.length; i++) {
+          if (snake[0].x === apples[i].x && snake[0].y === apples[i].y) {
+            // Remove the eaten apple
+            snake.push({ x: apples[i].x, y: apples[i].y });
+            score += apples[i].value;
+
+            // Update hidden word
+            const letter = word[apples[i].index];
+            hiddenWord = hiddenWord.substring(0, apples[i].index) + letter + hiddenWord.substring(apples[i].index + 1);
+
+            // Spawn new apples
+            spawnApples(5);
+          }
+        }
+
+        // Check if the snake has collided with itself
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw underscores for each letter in the word
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText(hiddenWord, canvas.width / 2 - (snakeSize * word.length / 4), canvas.height - snakeSize / 2);
+
+        // Draw the length of the word
+        ctx.fillStyle = "black";
+        ctx.font = "16px Arial";
+        ctx.fillText("Score: " + score, 10, canvas.height - 10);
+
+        // Draw apples
+        for (let i = 0; i < apples.length; i++) {
+          ctx.fillStyle = "red";
+          ctx.font = "20px Arial";
+          ctx.beginPath();
+ctx.arc(apples[i].x * snakeSize + snakeSize / 2, apples[i].y * snakeSize + snakeSize / 2, snakeSize / 2, 0, Math.PI * 2);
+ctx.fill();
+}
+ // Draw the snake
+ for (let i = 0; i < snake.length; i++) {
+      ctx.fillStyle = "green";
+      ctx.fillRect(snake[i].x * snakeSize, snake[i].y * snakeSize, snakeSize, snakeSize);
+    }
+
+    // Check if the game is over
+    if (gameOver) {
+      ctx.fillStyle = "black";
+      ctx.font = "30px Arial";
+      ctx.fillText("GAME OVER", canvas.width / 2 - 80, canvas.height / 2);
+    }
+  }
+
+  function moveSnake() {
+    // Create new head for snake
+    let newHead;
+    switch (direction) {
+      case "up":
+        newHead = { x: snake[0].x, y: snake[0].y - 1 };
+        break;
+      case "down":
+        newHead = { x: snake[0].x, y: snake[0].y + 1 };
+        break;
+      case "left":
+        newHead = { x: snake[0].x - 1, y: snake[0].y };
+        break;
+      case "right":
+        newHead = { x: snake[0].x + 1, y: snake[0].y };
+        break;
+    }
+
+    // Check if snake has collided with itself or wall
+    if (newHead.x < 0 || newHead.x >= canvas.width / snakeSize || newHead.y < 0 || newHead.y >= canvas.height / snakeSize) {
+      gameOver = true;
+      return;
+    }
+
+    for (let i = 1; i < snake.length; i++) {
+      if (newHead.x === snake[i].x && newHead.y === snake[i].y) {
+        gameOver = true;
+        return;
+      }
+    }
+
+    // Add new head to front of snake
+    snake.unshift(newHead);
+
+    // Remove tail of snake
+    snake.pop();
+  }
+
+  function spawnApples(num) {
+    for (let i = 0; i < num; i++) {
+      // Generate a random location for the apple
+      let appleX = Math.floor(Math.random() * canvas.width / snakeSize);
+      let appleY = Math.floor(Math.random() * canvas.height / snakeSize);
+
+      // Check if the apple is already at the generated location
+      for (let j = 0; j < apples.length; j++) {
+        if (apples[j].x === appleX && apples[j].y === appleY) {
+          appleX = Math.floor(Math.random() * canvas.width / snakeSize);
+          appleY = Math.floor(Math.random() * canvas.height / snakeSize);
+          j = -1; // Reset loop to check all previous apples again
+        }
+      }
+
+      // Add the apple to the array
+      apples.push({ x: appleX, y: appleY, value: Math.floor(Math.random() * 3) + 1, index: Math.floor(Math.random() * word.length) });
+    }
+  }
+
+  // Set up event listener for key presses
+  document.addEventListener("keydown", function (event) {
+    switch (event.key) {
+      case "ArrowUp":
+        if (direction !== "down") {
+          direction = "up";
+        }
+        break;
+      case "ArrowDown":
+        if (direction !== "up") {
+          direction = "down";
+          break;
+case "ArrowLeft":
+if (direction !== "right") {
+direction = "left";
+}
+break;
+case "ArrowRight":
+if (direction !== "left") {
+direction = "right";
+}
+break;
+}
+});
+
+// Start the game loop
+function gameLoop() {
+// Clear canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Move the snake
+moveSnake();
+
+// Draw the apples
+for (let i = 0; i < apples.length; i++) {
+  ctx.fillStyle = "red";
+  ctx.fillRect(apples[i].x * snakeSize, apples[i].y * snakeSize, snakeSize, snakeSize);
+
+  // Draw the value of the apple
+  ctx.fillStyle = "white";
+  ctx.font = "15px Arial";
+  ctx.fillText(apples[i].value, apples[i].x * snakeSize + 5, apples[i].y * snakeSize + 17);
+}
+
+// Check if the snake has eaten an apple
+for (let i = 0; i < apples.length; i++) {
+  if (snake[0].x === apples[i].x && snake[0].y === apples[i].y) {
+    // Increase score and add to word
+    score += apples[i].value;
+    word += wordList[apples[i].index];
+
+    // Remove the apple from the array
+    apples.splice(i, 1);
+
+    // Spawn more apples
+    spawnApples(Math.floor(Math.random() * 3) + 1);
+  }
+}
+
+// Draw the score
+ctx.fillStyle = "black";
+ctx.font = "20px Arial";
+ctx.fillText(`Score: ${score}`, 10, 30);
+
+// Draw the word
+ctx.fillStyle = "black";
+ctx.font = "20px Arial";
+ctx.fillText(`Word: ${word}`, 10, 60);
+
+// Draw the snake
+for (let i = 0; i < snake.length; i++) {
+  ctx.fillStyle = "green";
+  ctx.fillRect(snake[i].x * snakeSize, snake[i].y * snakeSize, snakeSize, snakeSize);
+}
+
+// Check if the game is over
+if (gameOver) {
+  ctx.fillStyle = "black";
+  ctx.font = "30px Arial";
+  ctx.fillText("GAME OVER", canvas.width / 2 - 80, canvas.height / 2);
+} else {
+  // Continue game loop
+  setTimeout(gameLoop, 100);
+}
+}
+
+// Start the game
+spawnApples(5);
+gameLoop();
+
+

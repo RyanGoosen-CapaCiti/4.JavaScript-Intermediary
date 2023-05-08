@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Snake Game</title>
+    <style>
+      canvas {
+        border: 5px solid white;
+        border-radius: 10px;
+        display: block;
+        margin: auto;
+      }
+
+      h1 {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        text-align: center;
+        margin-top: 20px;
+        color: aqua;
+      }
+      h2 {
+        font-family: Arial, sans-serif;
+        font-size: 36px;
+        text-align: center;
+        margin-top: 0px;
+        color: chartreuse;
+      }
+
+      body {
+        background-color: black;
+      }
+
+      #canvas:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>SNAKE MAN!!!</h2>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <h1>THE WORDS YOU ARE LOOKING FOR IS A CAPITAL CITY.</h1>
+    <h1 id="lively">Lives</h1>
+    <script>
+      // Set up canvas and context
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set up game variables
+      const snakeSize = 25;
+      let snake = [];
+      let direction = "right";
+      let score = 0;
+      let apples = [];
+      // Set up initial snake position
+      for (let i = 0; i < 1; i++) {
+        snake.push({ x: i, y: 0 });
+      }
+
+      // Spawn initial apples
+      spawnApples(5);
+
+      // Set up game loop
+      setInterval(gameLoop, 250);
+
+      //GAME OVER
+      let gameOver = false;
+
+      //LIVES
+      let lives = 50;
+
+      //WORDS
+      const capitalCities = [
+        "tokyo",
+        "new delhi",
+        "paris",
+        "london",
+        "beijing",
+        "washington",
+        "moscow",
+        "rome",
+        "berlin",
+        "ottawa",
+      ];
+      const randomIndex = Math.floor(Math.random() * capitalCities.length);
+      const word = capitalCities[randomIndex];
+      const wordProgression = Array(word.length).fill("_");
+
+      alert(word);
+      function gameLoop() {
+        result = "Lives: " + lives;
+        document.getElementById("lively").innerHTML = "Lives: " + lives; // Display the number of lives
+        moveSnake(); // Move the snake
+        winchecker();
+        // Check if the snake has collided with an apple
+        for (let i = 0; i < apples.length; i++) {
+          if (snake[0].x === apples[i].x && snake[0].y === apples[i].y) {
+            // Remove the eaten apple
+            snake.push([i.x, i.y]);
+            score += apples[i].value;
+            isLetterInWord(String.fromCharCode(apples[i].value), word);
+            // Spawn new apples
+
+            spawnApples(5);
+          }
+        }
+
+        // Check if the snake has collided with itself
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw apples
+        for (let i = 0; i < apples.length; i++) {
+          ctx.fillStyle = "green";
+          ctx.font = "20px Arial";
+          ctx.fillText(
+            String.fromCharCode(apples[i].value),
+            apples[i].x * snakeSize + snakeSize / 4,
+            apples[i].y * snakeSize + snakeSize / 1.5
+          );
+          // ctx.fillRect(
+          //   apples[i].x * snakeSize,
+          //   apples[i].y * snakeSize,
+          //   snakeSize,
+          //   snakeSize
+          // );
+        }
+
+        // Draw snake
+        for (let i = 0; i < snake.length; i++) {
+          ctx.fillStyle = "white";
+          ctx.fillRect(
+            snake[i].x * snakeSize,
+            snake[i].y * snakeSize,
+            snakeSize,
+            snakeSize
+          );
+        }
+        // Draw underscores for each letter in the word
+        for (let i = 0; i < word.length; i++) {
+          ctx.fillStyle = "aqua";
+          ctx.font = "20px Arial";
+          ctx.fillText(
+            wordProgression[i],
+            i * snakeSize + snakeSize / 4,
+            canvas.height - snakeSize / 2
+          );
+        }
+
+        if (
+          !gameOver &&
+          (snake[0].x < 0 ||
+            snake[0].x >= canvas.width / snakeSize ||
+            snake[0].y < 0 ||
+            snake[0].y >= canvas.height / snakeSize ||
+            (snake.length > 4 && checkCollision(snake[0], snake.slice(1))))
+        ) {
+          // Game over
+          gameOver = true;
+          alert("GAME OVER");
+          location.reload();
+          snake.x = 0;
+          snake.y = 0; // Reload the page to restart the game
+        }
+
+        function checkCollision(head, body) {
+          for (let i = 0; i < body.length; i++) {
+            if (head.x === body[i].x && head.y === body[i].y) {
+              return true;
+            }
+          }
+          return false;
+        }
+      }
+
+      function updateWordProgression(letter) {
+        for (let i = 0; i < word.length; i++) {
+          if (word[i] === letter) {
+            wordProgression[i] = letter;
+          }
+        }
+      }
+
+      function winchecker() {
+        if (wordProgression == word) {
+          alert("Well Done You Win");
+          gameOver = true;
+          location.reload();
+          snake.x = 0;
+          snake.y = 0; // Reload the page to restart the game
+        }
+      }
+
+      function loseLife() {
+        lives--;
+        if (lives === 0) {
+          // Game over
+          gameOver = true;
+          alert("GAME OVER");
+          location.reload();
+          snake.x = 0;
+          snake.y = 0; // Reload the page to restart the game
+        }
+      }
+
+      function moveSnake() {
+        // Move the snake's head
+        let head = { x: snake[0].x, y: snake[0].y };
+        if (direction === "right") {
+          head.x++;
+        } else if (direction === "left") {
+          head.x--;
+        } else if (direction === "up") {
+          head.y--;
+        } else if (direction === "down") {
+          head.y++;
+        }
+
+        // Remove the tail of the snake
+        snake.pop();
+
+        // Add the new head to the beginning of the snake
+        snake.unshift(head);
+      }
+
+      function spawnApples(num) {
+        apples = [];
+        for (let i = 0; i < num; i++) {
+          let apple = {
+            x: Math.floor(Math.random() * (300 / snakeSize)),
+            y: Math.floor(Math.random() * (300 / snakeSize)),
+            value: Math.floor(Math.random() * 26) + 97, // Assign a random value between 1 and 10
+          };
+
+          apples.push(apple);
+        }
+      }
+
+      function isLetterInWord(letter, wordr) {
+        let foundLetter = false;
+        for (let i = 0; i < word.length; i++) {
+          if (word[i] === letter) {
+            foundLetter = true;
+            break;
+          }
+        }
+        if (foundLetter) {
+          updateWordProgression(letter);
+        } else {
+          loseLife();
+        }
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.keyCode === 37 && direction !== "right") {
+          direction = "left";
+        } else if (event.keyCode === 38 && direction !== "down") {
+          direction = "up";
+        } else if (event.keyCode === 39 && direction !== "left") {
+          direction = "right";
+        } else if (event.keyCode === 40 && direction !== "up") {
+          direction = "down";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Frame</title>
+</head>
+<body class="stylePopup" onload="noticeStatus()">
+    
+    <style>
+        
+     .stylePopup {
+            background-image:url(./Images/stationary.jpg);
+             background-size: cover !important; 
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important ;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            background-blend-mode: multiply !important;
+
+        }
+        .centerImg1 {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 50% !important;
+}   
+
+    </style>
+
+
+
+<div id="contentStat">
+    
+    <h1  class="centerImg1" style="color: rgb(247, 245, 242) !important; ">Enrollment Date</h1>
+    <hr>
+
+
+
+    <p id="appContent" class="centerImg1" style=" font-size: xx-large !important; "  ></p>
+    
+</div>
+
+<a href="./enroll.html"><button id="enrollBtn" onclick="enrollDateNotice()" class="centerImg1" >Apply Now!!</button></a>
+
+<script src="./js/alertPop.js"></script>
+
+</body>
+</html>

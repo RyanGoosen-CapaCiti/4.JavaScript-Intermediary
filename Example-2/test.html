@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+			margin: 0;
+			padding: 0;
+		}
+        header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+		h1 {
+			margin: 0;
+		}
+		.video-container {
+			position: relative;
+			height: 100vh;
+		}
+		.video-container video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
+		}
+		.content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			color: #fff;
+		}
+        .container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			margin: 20px;
+		}
+		.card {
+			background-color: #fff;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+			padding: 20px;
+			margin: 20px;
+			width: 300px;
+			text-align: center;
+			border-radius: 5px;
+		}
+		.card:hover {
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			transform: translateY(-5px);
+			transition: all 0.3s ease;
+		}
+		.card img {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+			border-radius: 5px;
+			margin-bottom: 20px;
+		}
+		.card h2 {
+			margin: 0;
+			font-size: 24px;
+			font-weight: bold;
+		}
+		.card p {
+			margin: 10px 0;
+			font-size: 18px;
+		}
+		h1 {
+			font-size: 72px;
+			margin: 0;
+			padding: 20px;
+			text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+		}
+		p {
+			font-size: 24px;
+			margin: 0;
+			padding: 20px;
+			text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+		}
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay loop muted>
+          <source src="img/pexels-tobias-bjørkli-2334654-3840x2160-30fps.mp4" type="video/mp4">
+          <source src="img/pexels-tobias-bjørkli-2334654-3840x2160-30fps.mp4" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <header>
+                <h1>Game Website</h1>
+            </header>
+            <div class="container">
+                <div class="card">
+                    <img src="game1.jpg" alt="Game 1">
+                    <h2>Game 1</h2>
+                    <p>A fun puzzle game.</p>
+                    <button onclick="playGame('games/snake.html')">Play Now</button>
+                </div>
+                <div class="card">
+                    <img src="game2.jpg" alt="Game 2">
+                    <h2>Game 2</h2>
+                    <p>A thrilling racing game.</p>
+                    <button onclick="playGame('game2.html')">Play Now</button>
+                </div>
+                <div class="card">
+                    <img src="game3.jpg" alt="Game 3">
+                    <h2>Game 3</h2>
+                    <p>An exciting adventure game.</p>
+                    <button onclick="playGame('game3.html')">Play Now</button>
+                </div>
+            </div>
+      </div>
+</body>
+</html>

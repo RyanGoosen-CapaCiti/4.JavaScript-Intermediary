@@ -1,0 +1,70 @@
+#score{
+    text-align: center;
+}
+
+/*.bg{
+    width: 100%;
+    width: 100%;
+    position: relative;
+    background-image: url("landscape.png");
+    background-size: cover;
+}*/ 
+
+.bg{
+    max-width: 100%;
+    height: auto;
+    background-color: green;
+}
+
+#game{
+    width: 600px;
+    height: 300px;
+    border: 2px solid black;
+    margin: auto;
+    background-image: url("/Images/gameBg.jpg");
+    background-size: cover;
+}
+
+#car{
+    height: 75px;
+    width: 75px;
+    position: relative;
+    top: 225px;
+    background-image: url("/Images/car.png");
+    background-size: cover;
+}
+
+#books{
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: 175px;
+    left: 550px;
+    background-image: url("/Images/bookStack.png");
+    background-size: cover;
+    animation: books 1.33s infinite;
+}
+
+@keyframes books {
+    0%{left:550px;}
+    100%{left: -50px;}
+}
+
+.jump-animation{
+    animation: jump 0.5s;
+}
+
+@keyframes jump {
+    0%{top: 225px;}
+    50%{top: 75px;}
+    75%{top: 75px;}
+    100%{top: 225px;}
+}
+
+/*--------------------------------------*/
+
+.homeImg{
+    height: 50px;
+    width: 50px;
+    position: relative;
+}

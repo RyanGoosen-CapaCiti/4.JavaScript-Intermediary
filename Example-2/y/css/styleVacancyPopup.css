@@ -1,0 +1,19 @@
+.imgBackVacancyPopup {
+
+    background-image: url('./vacancy.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    }
+    
+    .centerContentVacancy{
+    
+        text-align: center;
+    color: black;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-shadow: 5px 3px black;
+    
+    }
+    
+    
+    

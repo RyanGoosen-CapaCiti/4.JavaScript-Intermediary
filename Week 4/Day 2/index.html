@@ -1,0 +1,20 @@
+<html>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+
+    <script type="text/babel">
+        const rootEl = document.getElementById('root')
+        const spanElement = React.createElement('span', {}, ' SPAN!')
+        // const element = React.createElement('h1', {id: 'header'},  'Hey there', spanElement)
+        const element = <h1 id='header'> Hey there</h1>
+        ReactDOM.render(element, rootEl)
+    </script>
+</body>
+
+</html>
